@@ -1,0 +1,175 @@
+<%
+
+#Import the data from the submission form to this page
+from bottle import request
+
+className1 = request.forms.get("className1")
+className2 = request.forms.get("className2")
+className3 = request.forms.get("className3")
+className4 = request.forms.get("className4")
+className5 = request.forms.get("className5")
+classCredit1 = request.forms.get("classCredit1")
+classCredit2 = request.forms.get("classCredit2")
+classCredit3 = request.forms.get("classCredit3")
+classCredit4 = request.forms.get("classCredit4")
+classCredit5 = request.forms.get("classCredit5")
+earnedPoints1 = request.forms.get("earnedPoints1")
+earnedPoints2 = request.forms.get("earnedPoints2")
+earnedPoints3 = request.forms.get("earnedPoints3")
+earnedPoints4 = request.forms.get("earnedPoints4")
+earnedPoints5 = request.forms.get("earnedPoints5")
+predictedPoints1 = request.forms.get("predictedPoints1")
+predictedPoints2 = request.forms.get("predictedPoints2")
+predictedPoints3 = request.forms.get("predictedPoints3")
+predictedPoints4 = request.forms.get("predictedPoints4")
+predictedPoints5 = request.forms.get("predictedPoints5")
+totalPoints1 = request.forms.get("totalPoints1")
+totalPoints2 = request.forms.get("totalPoints2")
+totalPoints3 = request.forms.get("totalPoints3")
+totalPoints4 = request.forms.get("totalPoints4")
+totalPoints5 = request.forms.get("totalPoints5")
+cumulativeGPA = request.forms.get("cumulativeGPA")
+completedCredits = request.forms.get("completedCredits")
+username = request.forms.get("username")
+password = request.forms.get("password")
+
+#Convert all variables into correct data format for later calculations and storage
+className1 = str(className1); className2 = str(className2); className3 = str(className3); className4 = str(className4); className5 = str(className5)
+classCredit1 = int(classCredit1); classCredit2 = int(classCredit2); classCredit3 = int(classCredit3); classCredit4 = int(classCredit4); classCredit5 = int(classCredit5)
+earnedPoints1 = int(earnedPoints1); earnedPoints2 = int(earnedPoints2); earnedPoints3 = int(earnedPoints3); earnedPoints4 = int(earnedPoints4); earnedPoints5 = int(earnedPoints5)
+predictedPoints1 = int(predictedPoints1); predictedPoints2 = int(predictedPoints2); predictedPoints3 = int(predictedPoints3); predictedPoints4 = int(predictedPoints4); predictedPoints5 = int(predictedPoints5)
+totalPoints1 = int(totalPoints1); totalPoints2 = int(totalPoints2); totalPoints3 = int(totalPoints3); totalPoints4 = int(totalPoints4); totalPoints5 = int(totalPoints5)
+cumulativeGPA = float(cumulativeGPA); completedCredits = float(completedCredits); username = str(username); password = str(password)
+
+#Change username to lowercase and remove spaces to eliminate case sensitivity
+username = username.lower()
+username = username.strip()
+
+#Create list that contain each piece of class grade information in order
+classNames = [className1, className2, className3, className4, className5]
+classCredits = [classCredit1, classCredit2, classCredit3, classCredit4, classCredit5]
+earnedPoints = [earnedPoints1, earnedPoints2, earnedPoints3, earnedPoints4, earnedPoints5]
+predictedPoints = [predictedPoints1, predictedPoints2, predictedPoints3, predictedPoints4, predictedPoints5]
+totalPoints = [totalPoints1, totalPoints2, totalPoints3, totalPoints4, totalPoints5]
+
+
+#Create new variables that will be used in grade calculations
+predictedGrade = [0, 0, 0, 0, 0]
+predictedGP = [0, 0, 0, 0, 0]
+predictedGPSum = 0
+newCredits = classCredit1 + classCredit2 + classCredit3 + classCredit4 + classCredit5
+validClassNames = []
+
+#Create a list that contains only class names with an input
+for i in range(0,4):
+    if classNames[i] != "":
+        validClassNames.append(classNames[i])
+    end
+end
+
+#Define a function that takes a predicted class grade and converts it into grade points
+def gpconverter(grade, credits):
+    grade = int(grade)
+    if (grade >= 94):
+        return float(4.0)*credits
+    elif (grade >= 90):
+        return float(3.7)*credits
+    elif (grade >= 87):
+        return float(3.3)*credits
+    elif (grade >= 83):
+        return float(3.0)*credits
+    elif (grade >= 80):
+        return float(2.7)*credits
+    elif (grade >= 77):
+        return float(2.3)*credits
+    elif (grade >= 73):
+        return float(2.0)*credits
+    elif (grade >= 70):
+        return float(1.7)*credits
+    elif (grade >= 67):
+        return float(1.3)*credits
+    elif (grade >= 60):
+        return float(31.0)*credits
+    else:
+        return float(0.0)*credits
+    end
+end
+
+#Define a function that calculates a new GPA bases on current GPA and predicted class grade points
+def gpacalc(gpa, credits, new, newcredits):
+    points = (gpa*credits) + new
+    gpa = points/(credits + newcredits)
+    newpoints = float(gpa)
+    return gpa
+end
+
+#Define a function that calculates a predicted class grade based on point recieved, predicted, and total possible
+def gradecalc(recieved, predicted, possible):
+    recieved = int(recieved)
+    predicted = int(predicted)
+    possible = int(possible)
+    if possible != 0:
+        output = (recieved + predicted)/possible
+        output = output*100
+        output = "{:.0f}".format(output)
+        output = int(output)
+        return output
+    else:
+        return "0"
+    end
+end
+
+#Calculate predicted grade for all classes and assign in order to tupil called predictedGrade
+for i in range(0,4):
+    predictedGrade[i] = gradecalc(earnedPoints[i], predictedPoints[i], totalPoints[i])
+end
+
+#Calculate grade points for all classes
+for i in range(0,4):
+    predictedGP[i] = gpconverter(predictedGrade[i], classCredits[i])
+    predictedGPSum = predictedGPSum + predictedGP[i]
+end
+
+#Calculate semester GPA
+semesterGPA = gpacalc(0, 0, predictedGPSum, newCredits)
+
+#Calculate new cumulative GPA
+newCumulativeGPA = gpacalc(cumulativeGPA, completedCredits, predictedGPSum, newCredits)
+
+#Format GPA information so it contains only 2 decimal places
+newCumulativeGPA = "{:.2F}".format(newCumulativeGPA)
+semesterGPA = "{:.2f}".format(semesterGPA)
+
+#Save entry to database
+c.execute("INSERT INTO gpa VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (username, password, className1, classCredit1, earnedPoints1, predictedPoints1, totalPoints1, className2, classCredit2, earnedPoints2, predictedPoints2, totalPoints2, className3, classCredit3, earnedPoints3, predictedPoints3, totalPoints3, className4, classCredit4, earnedPoints4, predictedPoints4, totalPoints4, className5, classCredit5, earnedPoints5, predictedPoints5, totalPoints5, cumulativeGPA, completedCredits))
+
+db.commit()
+%>
+
+<!DOCTYPE html>
+<!-- Basic HTML settings -->
+<html lang = "en-us">
+    <!-- Basic CSS to set background color to light blue -->
+    <style type = "text/css" />
+        body {
+            background-color: #8bbdd9;
+        }
+    </style>
+    <head>
+        <title>GPA Results</title>
+        <meta charset = "utf-8">
+    </head>
+
+    <body>
+        <h1>Results</h1>
+
+        <!-- Create a loop so that only classes with a valid class name (not null) are displayed to user -->
+        %for i in range(0, len(validClassNames)):
+            <p>In {{classNames[i]}}, if you make {{predictedPoints[i]}} points, you will make a {{predictedGrade[i]}}% in the class.</p>
+        %end
+
+        <p>Your semester GPA will be {{semesterGPA}}. Your overall GPA will change from {{cumulativeGPA}} to {{newCumulativeGPA}}</p>
+
+
+</body>
+</html>

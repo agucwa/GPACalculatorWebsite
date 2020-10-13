@@ -1,0 +1,282 @@
+<%
+#Import the data from the submission form to this page
+from bottle import request
+username = request.forms.get("username")
+password = request.forms.get("password")
+
+#Change username to lowercase to eliminate case sensitivity
+username = username.lower()
+username = username.strip()
+
+#Create a variable that will be overwritten if username and password match a reccord
+#If record does not exist, variable will act as a "sign post" and direct user to error page.
+classCredits1 = ""
+
+#Search database for username and password match
+result = c.execute("SELECT * FROM gpa WHERE username = ? AND password = ?",(username, password))
+    for row in result:
+        (id, username, password, className1, classCredits1, earnedPoints1, predictedPoints1, totalPoints1, className2, classCredits2, earnedPoints2, predictedPoints2, totalPoints2, className3, classCredits3, earnedPoints3, predictedPoints3, totalPoints3, className4, classCredits4, earnedPoints4, predictedPoints4, totalPoints4, className5, classCredits5, earnedPoints5, predictedPoints5, totalPoints5, cumulativeGPA, creditsEarned) = row
+    end
+
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Basic CSS to set background color to light blue -->
+  <style type = "text/css" />
+        body {
+            background-color: #8bbdd9;
+        }
+    </style>
+  <title>Incorrect Login</title>
+</head>
+<body>
+    <!-- If classCredits1 variable was not changed, then database query returned empty.
+    Display incorrect login page with links for user to start process again-->
+    %if classCredits1 == "":
+        <h1>Incorrect Login Credintials</h1>
+
+
+        <p>
+            Username or password does not match our records, please
+            <a href = "http://agucwa.pythonanywhere.com/gpa/login">try again</a>
+            or
+            <a href = "http://agucwa.pythonanywhere.com/gpa/classinformation">start calculations from the begining.</a>
+        </p>
+    <!-- If classCredits1 was changed, it means query was successful. Display class information page. -->
+    %else:
+        <p>
+            Please input information for each of your classes. Earned points should be the sum of all points
+            earned so far in this class. Predicted points should consist
+            of the total points available in your course (except extra credit points).
+            If you have less than 5 classes, leave extra class names blank
+        </p>
+
+        <!-- All form information is sent to the results page with post. Input is text type for strings and text type numbers for numbers.-->
+        <p>
+        <form action = "/gpa/login/results"
+            method = "post">
+            <fieldset>
+                <label>Class Name</label>
+                <input type = "text"
+                    value = "{{className1}}"
+                    name = "className1" />
+
+                <label>Class Credit Hours</label>
+                <input type = "number"
+                    value = "{{classCredits1}}"
+                    name = "classCredit1"
+                    max = "15"
+                    min = "0" />
+
+                <label>Earned Points</label>
+                <input type = "number"
+                    value = "{{earnedPoints1}}"
+                    name = "earnedPoints1"
+                    max = ""
+                    min = "0" />
+
+                <label>Predicted Points</label>
+                <input type = "number"
+                    value = "{{predictedPoints1}}"
+                    name = "predictedPoints1"
+                    max = ""
+                    min = "0" />
+
+                <label>Total Points Possible</label>
+                <input type = "number"
+                    value = "{{totalPoints1}}"
+                    name = "totalPoints1"
+                    max = ""
+                    min = "0" />
+                </p>
+
+                <p>
+                <label>Class Name</label>
+                <input type = "text"
+                    value = "{{className2}}"
+                    name = "className2" />
+
+                <label>Class Credit Hours</label>
+                <input type = "number"
+                    value = "{{classCredits2}}"
+                    name = "classCredit2"
+                    max = "15"
+                    min = "0"/>
+
+                <label>Earned Points</label>
+                <input type = "number"
+                    value = "{{earnedPoints2}}"
+                    name = "earnedPoints2"
+                    max = ""
+                    min = "0" />
+
+                <label>Predicted Points</label>
+                <input type = "number"
+                    value = "{{predictedPoints2}}"
+                    name = "predictedPoints2"
+                    max = ""
+                    min = "0" />
+
+                <label>Total Points Possible</label>
+                <input type = "number"
+                    value = "{{totalPoints2}}"
+                    name = "totalPoints2"
+                    max = ""
+                    min = "0" />
+                </p>
+
+
+                <p>
+                <label>Class Name</label>
+                <input type = "text"
+                    value = "{{className3}}"
+                    name = "className3" />
+
+                <label>Class Credit Hours</label>
+                <input type = "number"
+                    value = "{{classCredits3}}"
+                    name = "classCredit3"
+                    max = "15"
+                    min = "0" />
+
+                <label>Earned Points</label>
+                <input type = "number"
+                    value = "{{earnedPoints3}}"
+                    name = "earnedPoints3"
+                    max = ""
+                    min = "0" />
+
+                <label>Predicted Points</label>
+                <input type = "number"
+                    value = "{{predictedPoints3}}"
+                    name = "predictedPoints3"
+                    max = ""
+                    min = "0" />
+
+                <label>Total Points Possible</label>
+                <input type = "number"
+                    value = "{{totalPoints3}}"
+                    name = "totalPoints3"
+                    max = ""
+                    min = "0" />
+                </p>
+
+                <p>
+                <label>Class Name</label>
+                <input type = "text"
+                    value = "{{className4}}"
+                    name = "className4" />
+
+                <label>Class Credit Hours</label>
+                <input type = "number"
+                    value = "{{classCredits4}}"
+                    name = "classCredit4"
+                    max = "15"
+                    min = "0" />
+
+                <label>Earned Points</label>
+                <input type = "number"
+                    value = "{{earnedPoints4}}"
+                    name = "earnedPoints4"
+                    max = ""
+                    min = "0" />
+
+                <label>Predicted Points</label>
+                <input type = "number"
+                       value = "{{predictedPoints4}}"
+                       name = "predictedPoints4"
+                       max = ""
+                       min = "0" />
+
+                <label>Total Points Possible</label>
+                <input type = "number"
+                       value = "{{totalPoints4}}"
+                       name = "totalPoints4"
+                       max = ""
+                       min = "0" />
+                </p>
+
+                <p>
+                <label>Class Name</label>
+                <input type = "text"
+                       value = "{{className5}}"
+                       name = "className5" />
+
+                <label>Class Credit Hours</label>
+                <input type = "number"
+                       value = "{{classCredits5}}"
+                       name = "classCredit5"
+                       max = "15"
+                       min = "0" />
+
+                <label>Earned Points</label>
+                <input type = "number"
+                       value = "{{earnedPoints5}}"
+                       name = "earnedPoints5"
+                       max = ""
+                       min = "0"/>
+
+                <label>Predicted Points</label>
+                <input type = "number"
+                       value = "{{predictedPoints5}}"
+                       name = "predictedPoints5"
+                       max = ""
+                       min = "0" />
+
+                <label>Total Points Possible</label>
+                <input type = "number"
+                       value = "{{totalPoints5}}"
+                       name = "totalPoints5"
+                       max = ""
+                       min = "0" />
+                </p>
+
+
+            <h2>GPA Information</h2>
+
+
+            <p>
+                <label>Cumulative GPA</label>
+                <input type = "number"
+                       value = "{{cumulativeGPA}}"
+                       name = "cumulativeGPA"
+                       max = "5.00"
+                       min = "0.00"
+                       step = "0.01" />
+
+                <label>Completed Credits</label>
+                <input type = "number"
+                       value = "{{creditsEarned}}"
+                       name = "completedCredits"
+                       max = ""
+                       min = "0" />
+            </p>
+
+            <p>
+               Please confirm your username and password if you would like to save these changes to your account
+            </p>
+
+
+
+                <label>Username</label>
+                <input type = "text"
+                       value = ""
+                       name = "username" />
+
+                <label>Password</label>
+                <input type = "text"
+                       value = ""
+                       name = "password" />
+
+<!-- Submit button for the user to submit their entered information -->
+                <button type = "submit">
+                  submit
+                </button>
+            </fieldset>
+    %end
+
+
+</body>
+</html>

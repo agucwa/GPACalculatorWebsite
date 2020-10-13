@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <!-- Basic CSS to set background color to light blue -->
+  <style type = "text/css" />
+        body {
+            background-color: #8bbdd9;
+        }
+    </style>
+  <title>Login</title>
+</head>
+
+<body>
+<h1>Login</h1>
+<!-- Plaintext instructions for user -->
+<p>
+   Password is case sensitive.
+</p>
+
+<!-- Text forms for users to submit their information. Input is sent via post to the login class information page -->
+
+<form action = "/gpa/login/classinformation"
+      method = "post">
+  <fieldset>
+    <label>Username</label>
+    <input type = "text"
+           value = ""
+           name = "username"
+           required />
+
+    <label>Password</label>
+    <input type = "password"
+           value = ""
+           name = "password"
+           required />
+
+<!-- Submit button for the user to submit their entered information -->
+    <button type = "submit">
+      submit
+    </button>
+  </fieldset>
+</form>
+</body>
+</html>

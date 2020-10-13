@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <!-- Basic CSS to set background color to light blue -->
+  <style type = "text/css" />
+        body {
+            background-color: #8bbdd9;
+        }
+    </style>
+  <title>Class Information</title>
+</head>
+
+<body>
+<!-- Plaintext instructions for user-->
+<h1>Class information</h1>
+<p>If you would like to save your calculations please create an account by choosing a username and password.
+If you don't want to create an account, these fields can be left blank.</p>
+<p>Password is case sensitive.</p>
+
+
+    <!-- All form information is sent to the results page with post. Since input is string, input is text type.-->
+    <form action = "/gpa/results"
+        method = "post">
+        <fieldset>
+            <p>
+            <label>Username</label>
+            <input type = "text"
+                value = ""
+                id = "username"
+                name = "username" />
+
+            <label>Password</label>
+            <input type = "password"
+                value = ""
+                id = "password"
+                name = "password" />
+            </p>
+
+<!-- Plaintext instructions for user-->
+<p>
+   Please input information for each of your classes. Earned points should be the sum of all points
+   earned so far in this class. Predicted points should consist
+   of the total points available in your course (except extra credit points).
+   If you have less than 5 classes, leave extra class names blank.
+</p>
+
+<!-- Class name is string, so input type is text. All other inputs are numbers, so input type is numbers.
+Python functions require all input to not be null, so all fields except class name default to 0.-->
+
+    <p>
+    <label>Class Name</label>
+    <input type = "text"
+           value = ""
+           id = "className1"
+           name = "className1" />
+
+    <label>Class Credit Hours</label>
+    <input type = "number"
+           value = "0"
+           id = "classCredit1"
+           name = "classCredit1"
+           max = "15"
+           min = "0" />
+
+    <label>Earned Points</label>
+    <input type = "number"
+           value = "0"
+           id = "earnedPoints1"
+           name = "earnedPoints1"
+           max = ""
+           min = "0" />
+
+    <label>Predicted Points</label>
+    <input type = "number"
+           value = "0"
+           id = "predictedPoints1"
+           name = "predictedPoints1"
+           max = ""
+           min = "0" />
+
+    <label>Total Points Possible</label>
+    <input type = "number"
+           value = "0"
+           id = "totalPoints1"
+           name = "totalPoints1"
+           max = ""
+           min = "0" />
+    </p>
+
+    <p>
+    <label>Class Name</label>
+    <input type = "text"
+           value = ""
+           id = "className2"
+           name = "className2" />
+
+    <label>Class Credit Hours</label>
+    <input type = "number"
+           value = "0"
+           id = "classCredit2"
+           name = "classCredit2"
+           max = "15"
+           min = "0"/>
+
+    <label>Earned Points</label>
+    <input type = "number"
+           value = "0"
+           id = "earnedPoints2"
+           name = "earnedPoints2"
+           max = ""
+           min = "0"/>
+
+    <label>Predicted Points</label>
+    <input type = "number"
+           value = "0"
+           id = "predictedPoints2"
+           name = "predictedPoints2"
+           max = ""
+           min ="0"/>
+
+    <label>Total Points Possible</label>
+    <input type = "number"
+           value = "0"
+           id = "totalPoints2"
+           name = "totalPoints2"
+           max = ""
+           min = "0"/>
+    </p>
+
+    <p>
+    <label>Class Name</label>
+    <input type = "text"
+           value = ""
+           id = "className3"
+           name = "className3" />
+
+    <label>Class Credit Hours</label>
+    <input type = "number"
+           value = "0"
+           id = "classCredit3"
+           name = "classCredit3"
+           max = "15"
+           min = "0"/>
+
+    <label>Earned Points</label>
+    <input type = "number"
+           value = "0"
+           id = "earnedPoints3"
+           name = "earnedPoints3"
+           max = ""
+           min = "0"/>
+
+    <label>Predicted Points</label>
+    <input type = "number"
+           value = "0"
+           id = "predictedPoints3"
+           name = "predictedPoints3"
+           max = ""
+           min = "0"/>
+
+    <label>Total Points Possible</label>
+    <input type = "number"
+           value = "0"
+           id = "totalPoints3"
+           name = "totalPoints3"
+           max = ""
+           min = "0"/>
+    </p>
+
+    <p>
+    <label>Class Name</label>
+    <input type = "text"
+           value = ""
+           id = "className4"
+           name = "className4" />
+
+    <label>Class Credit Hours</label>
+    <input type = "number"
+           value = "0"
+           id = "classCredit4"
+           name = "classCredit4"
+           max = "15"
+           min = "0"/>
+
+    <label>Earned Points</label>
+    <input type = "number"
+           value = "0"
+           id = "earnedPoints4"
+           name = "earnedPoints4"
+           max = ""
+           min = "0"/>
+
+    <label>Predicted Points</label>
+    <input type = "number"
+           value = "0"
+           id = "predictedPoints4"
+           name = "predictedPoints4"
+           max = ""
+           min = "0"/>
+
+    <label>Total Points Possible</label>
+    <input type = "number"
+           value = "0"
+           id = "totalPoints4"
+           name = "totalPoints4"
+           max = ""
+           min = "0"/>
+    </p>
+
+    <p>
+    <label>Class Name</label>
+    <input type = "text"
+           value = ""
+           id = "className5"
+           name = "className5" />
+
+    <label>Class Credit Hours</label>
+    <input type = "number"
+           value = "0"
+           id = "classCredit5"
+           name = "classCredit5"
+           max = "15"
+           min = "0"/>
+
+    <label>Earned Points</label>
+    <input type = "number"
+           value = "0"
+           id = "earnedPoints5"
+           name = "earnedPoints5"
+           max = ""
+           min = "0"/>
+
+    <label>Predicted Points</label>
+    <input type = "number"
+           value = "0"
+           id = "predictedPoints5"
+           name = "predictedPoints5"
+           max = ""
+           min = "0"/>
+
+    <label>Total Points Possible</label>
+    <input type = "number"
+           value = "0"
+           id = "totalPoints5"
+           name = "totalPoints5"
+           max = ""
+           min = "0"/>
+    </p>
+
+<!-- Plaintext instructions for user, also acts as divider between sections -->
+
+<h2>GPA Information</h2>
+
+    <p>
+    <label>Cumulative GPA</label>
+    <input type = "number"
+           value = "0.00"
+           id = "cumulativeGPA"
+           name = "cumulativeGPA"
+           step = "0.01"
+           max = "5.00"
+           min = "0.00"/>
+
+    <label>Completed Credits</label>
+    <input type = "number"
+           value = "0"
+           id = "completedCredits"
+           name = "completedCredits"
+           max = ""
+           min = "0"/>
+
+    </p>
+
+<!-- Submit button for the user to submit their entered information -->
+    <button type = "submit">
+      submit
+    </button>
+  </fieldset>
+</form>
+</body>
+</html>
